@@ -1,0 +1,98 @@
+/* reference image */
+body {
+  background-image: url(../assets/bg.png);
+  background-color: rgba(255,255,255,0.6);
+  background-blend-mode: lighten;
+
+  font-family: "acumin-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #F4EFE9;
+}
+  
+.portfolio {
+  z-index: 2;
+}
+
+/* could also just be an image */
+.oval-shape {
+  position: fixed; /* Keeps the oval in the same place even when scrolling */
+  width: 1032px;    /* Width of the oval */
+  height: 1480px;   /* Height of the oval */
+  background-color: black;
+  border-radius: 50%; /* Makes the div into an oval */
+  top: 50%;        /* Position from the top of the viewport */
+  left: 50%;       /* Position from the left of the viewport */
+  transform: translate(-50%, -50%); /* Centers the oval perfectly */
+
+  z-index: -2;
+}
+
+/* */
+.p-header {
+  position: fixed;
+  top: 17%;       
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.p-name {}
+
+.p-page {
+  display: flex;
+  /* background-color: rgba(100, 110, 200, 0.6); */
+
+  /* top right bottom left */
+  margin: 550px 100px 0 100px;
+}
+
+/* content holds things like heading, media, description, ... */
+.p-content {}
+
+.p-heading {
+  font-size: 48px;
+  font-weight: 600;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+.p-media {
+  background-color: rgba(100,250,100,1);
+  border-radius: 5%;
+  width: 874px;
+  height: 492px;
+}
+
+.p-description {
+  font-size: 16px;
+  margin-left: 100px;
+  margin-right: 100px;
+
+  column-count: 2;
+  column-width: 200px;
+  column-gap: 20px;
+  height: 200px;
+  column-fill: auto;
+}
+
+/* */
+.p-footer {
+  position: fixed;
+  top: 83%;        /* Position from the top of the viewport */
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.p-title {}
+
+.p-page-number {}
+
+.ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  z-index: -1;
+}
