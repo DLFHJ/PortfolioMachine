@@ -1,3 +1,8 @@
+// Socket IO fehlt
+// SQL Light fehlt
+// -> Von Protestwand Code holen (auch mal nach UDP Protokoll suchen)
+
+
 const dgram = require('dgram');
 const server = dgram.createSocket('udp4');
 
