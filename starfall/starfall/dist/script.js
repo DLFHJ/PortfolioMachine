@@ -16,19 +16,14 @@ let textureFraction = 1 / 1;
 let w = 2048;
 let h = 1024;
 
+let isMousePressed = false;
+let shakeIntensity = 0;
+
+
 let newmouse = {
   x: 0,
   y: 0
 };
-
-
-let shakeIntensity = 0;
-let shakeDuration = 0;
-const maxShakeIntensity = 0.05;
-const shakeDecay = 0.95;
-
-
-
 
 let loader=new THREE.TextureLoader();
 let texture, rtTexture, rtTexture2;
@@ -65,7 +60,8 @@ function init() {
     u_buffer: { type: "t", value: rtTexture.texture },
     u_mouse: { type: "v3", value: new THREE.Vector3() },
     u_frame: { type: "i", value: -1. },
-    u_renderpass: { type: 'b', value: false }
+    u_renderpass: { type: 'b', value: false },
+    u_shake: { value: 0.0 }
   };
 
   var material = new THREE.ShaderMaterial( {
@@ -99,26 +95,33 @@ function init() {
     
     e.preventDefault();
   });
+
   document.addEventListener('pointerdown', (e) => {
     if (e.button === 0) {
-      uniforms.u_mouse.value.z = 1;
-      shakeIntensity = maxShakeIntensity;
-      shakeDuration = 10; // Number of frames to shake
-      console.log("test");
-    } else if (e.button === 2) {
-      uniforms.u_mouse.value.w = 1;
+      console.log("down");
+      isMousePressed = true;
     }
     e.preventDefault();
   });
-    document.addEventListener('pointerup', (e)=> {
-      if(e.button === 0) {
-        uniforms.u_mouse.value.z = 0;
-      } else if (e.button === 2) {
-        uniforms.u_mouse.value.w = 0;
-      }
-      e.preventDefault();
-    });
+
+  document.addEventListener('pointerup', (e) => {
+    if (e.button === 0) {
+      console.log("up");
+      isMousePressed = false;
+    }
+    e.preventDefault();
+  });
+
+  
+ 
 }
+
+
+
+
+
+// Add these event listeners after creating the renderer
+
 
 function onWindowResize( event ) {
   w = 2048;
@@ -137,68 +140,24 @@ function onWindowResize( event ) {
 }
 
 function animate(delta) {
+
+  uniforms.u_time.value = delta * 0.0005;
+  uniforms.u_frame.value += 1;
+
+  // Update shake intensity
+  if (isMousePressed) {
+    shakeIntensity = Math.min(shakeIntensity + 0.1, 1.0);
+  } else {
+    shakeIntensity = Math.max(shakeIntensity - 0.05, 0.0);
+  }
+  uniforms.u_shake.value = shakeIntensity;
+
+  renderer.render(scene, camera);
+
+
   requestAnimationFrame(animate);
   render(delta);
 }
-
-function render(delta) {
-  uniforms.u_frame.value++;
-  
-  uniforms.u_mouse.value.x += (newmouse.x - uniforms.u_mouse.value.x) * divisor;
-  uniforms.u_mouse.value.y += (newmouse.y - uniforms.u_mouse.value.y) * divisor;
-  
-  uniforms.u_time.value = delta * 0.0005;
-
-  // Apply screen shake
-  if (shakeDuration > 0) {
-    const shakeX = (Math.random() - 0.5) * shakeIntensity;
-    const shakeY = (Math.random() - 0.5) * shakeIntensity;
-    camera.position.x = shakeX;
-    camera.position.y = shakeY;
-    shakeIntensity *= shakeDecay;
-    shakeDuration--;
-  } else {
-    camera.position.x = 0;
-    camera.position.y = 0;
-  }
-
-  renderer.render(scene, camera);
-  renderTexture();
-  
-  if (capturing) {
-    capturer.capture(renderer.domElement);
-  }
-}
-
-
-
-
-
-
-let capturer = new CCapture( { 
-  verbose: true, 
-  framerate: 60,
-  // motionBlurFrames: 4,
-  quality: 90,
-  format: 'webm',
-  workersPath: 'js/'
- } );
-let capturing = false;
-
-isCapturing = function(val) {
-  if(val === false && window.capturing === true) {
-    capturer.stop();
-    capturer.save();
-  } else if(val === true && window.capturing === false) {
-    capturer.start();
-  }
-  capturing = val;
-}
-toggleCapture = function() {
-  isCapturing(!capturing);
-}
-
-window.addEventListener('keyup', function(e) { if(e.keyCode == 68) toggleCapture(); });
 
 let then = 0;
 function renderTexture(delta) {
@@ -239,7 +198,4 @@ function render(delta) {
   renderer.render( scene, camera );
   renderTexture();
   
-  if(capturing) {
-    capturer.capture( renderer.domElement );
-  }
 }

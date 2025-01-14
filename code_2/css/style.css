@@ -1,0 +1,202 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #000000;
+    height: 7600px;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+#content {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* if smaller content box is used and centering is needed: 
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      */
+    /* border: 2px dashed red; */
+}
+
+#viewport {
+    -webkit-perspective: 300px;
+    -moz-perspective: 300px;
+    -webkit-perspective-origin: 50% 50%;
+    -moz-perspective-origin: 50% 50%;
+    -moz-transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+}
+
+#instructions-overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background: rgba(0, 0, 0, .5);
+}
+
+.frame {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -moz-transform-style: preserve-3d;
+
+    background-color: aqua;
+}
+
+.frame.text {
+    text-align: center;
+    -moz-transform-style: preserve-3d;
+}
+
+.frame.image {
+    text-align: center;
+}
+
+.frame.video {
+    text-align: center;
+}
+
+.frame.text h1 {
+    color: white;
+    padding: 2em;
+}
+
+.frame.box {
+    border-radius: .5em;
+    background-color: white;
+    padding: 2em;
+}
+
+/* ----- */
+
+body {
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #F4EFE9;
+}
+
+.portfolio {
+    z-index: 2;
+}
+
+/* could also just be an image */
+.oval-shape {
+    position: fixed;
+    /* Keeps the oval in the same place even when scrolling */
+    width: 1032px;
+    /* Width of the oval */
+    height: 1480px;
+    /* Height of the oval */
+    background-color: rgba(87, 87, 87, .5);
+    border-radius: 50%;
+    /* Makes the div into an oval */
+    top: 50%;
+    /* Position from the top of the viewport */
+    left: 50%;
+    /* Position from the left of the viewport */
+    transform: translate(-50%, -50%);
+    /* Centers the oval perfectly */
+
+    z-index: -2;
+}
+
+/* */
+.p-header {
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.p-name {}
+
+.p-page {
+    display: flex;
+    /* background-color: rgba(100, 110, 200, 0.6); */
+
+    /* top right bottom left */
+    margin: 550px 100px 0 100px;
+}
+
+/* content holds things like heading, media, description, ... */
+.p-content {}
+
+.p-heading {
+    font-size: 48px;
+    font-weight: 600;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+
+
+.p-description {
+    font-size: 16px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+    column-count: 2;
+    column-width: 200px;
+    column-gap: 20px;
+    height: 200px;
+    column-fill: auto;
+}
+
+/* */
+.p-footer {
+    position: fixed;
+    top: 83%;
+    /* Position from the top of the viewport */
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.p-title {}
+
+.p-page-number {}
+
+.ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    z-index: -1;
+}
+
+/* ----- */
+
+#page1 {
+    -webkit-transform: translateZ(-1000px);-moz-transform: translateZ(-1000px); transform: translateZ(-1000px);
+}
+
+#page2 {
+    -webkit-transform: translateZ(-2000px);-moz-transform: translateZ(-2000px); transform: translateZ(-2000px);
+}
+
+#media1 {
+    background-color: rgba(100, 250, 100, .5);
+    border-radius: 5%;
+    width: 874px;
+    height: 492px;
+}
+
+#media2 {
+    background-color: rgba(250, 100, 100, .5);
+    border-radius: 5%;
+    width: 874px;
+    height: 492px;
+}
