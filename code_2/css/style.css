@@ -28,8 +28,8 @@ img {
 }
 
 #viewport {
-    -webkit-perspective: 300px;
-    -moz-perspective: 300px;
+    -webkit-perspective: 500px;
+    -moz-perspective: 500px;
     -webkit-perspective-origin: 50% 50%;
     -moz-perspective-origin: 50% 50%;
     -moz-transform-style: preserve-3d;
@@ -51,7 +51,7 @@ img {
     height: 100%;
     -moz-transform-style: preserve-3d;
 
-    background-color: aqua;
+    background-color: rgba(100, 50, 50, .5);
 }
 
 .frame.text {
@@ -78,28 +78,40 @@ img {
     padding: 2em;
 }
 
-/* ----- */
+/* ----------------------------------------------------------- */
 
+
+
+
+
+/* reference image */
 body {
+    /*
+    background-image: url(../assets/bg.png);
+    background-color: rgba(255,255,255,0.6);
+    background-blend-mode: lighten;
+    */
+  
     font-family: "acumin-pro", sans-serif;
     font-weight: 400;
     font-style: normal;
     color: #F4EFE9;
-}
-
-.portfolio {
-    z-index: 2;
-}
-
-/* could also just be an image */
-.oval-shape {
+  }
+  
+  .portfolio {
+    /* render on top of everything else */
+    
+  }
+  
+  /* background - size of the screen */
+  .oval-shape {
     position: fixed;
     /* Keeps the oval in the same place even when scrolling */
     width: 1032px;
     /* Width of the oval */
     height: 1480px;
     /* Height of the oval */
-    background-color: rgba(87, 87, 87, .5);
+    background-color: rgb(98, 98, 98);
     border-radius: 50%;
     /* Makes the div into an oval */
     top: 50%;
@@ -108,95 +120,135 @@ body {
     /* Position from the left of the viewport */
     transform: translate(-50%, -50%);
     /* Centers the oval perfectly */
-
     z-index: -2;
-}
-
-/* */
-.p-header {
+    /* render in the background */
+  }
+  
+  /* header holds information like student name and major */
+  .p-header {
     position: fixed;
     top: 17%;
     left: 50%;
     text-align: center;
     transform: translate(-50%, -50%);
-}
-
-.p-name {}
-
-.p-page {
-    display: flex;
-    /* background-color: rgba(100, 110, 200, 0.6); */
-
-    /* top right bottom left */
-    margin: 550px 100px 0 100px;
-}
-
-/* content holds things like heading, media, description, ... */
-.p-content {}
-
-.p-heading {
+  }
+  
+  .p-name {}
+  
+  .p-major {}
+  
+  .p-content {
+    max-width: 500px;
+  }
+  
+  /* project title */
+  .p-heading {
     font-size: 48px;
     font-weight: 600;
     margin-left: 100px;
     margin-right: 100px;
-}
-
-
-
-.p-description {
+  }
+  
+  .p-footer {
+    position: fixed;
+    top: 83%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+  }
+  
+  .p-title {}
+  
+  .p-page-number {}
+  
+  .ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+  
+    z-index: -1;
+  }
+  
+  .p-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Maintain aspect ratio and cover container */
+    border-radius: 5%;
+  }
+  
+  .p-description {
     font-size: 16px;
+  }
+  
+  /* ----- start of page specific defintions ----- */
+  
+  .p-page-1 {
+    /* top right bottom left */
+    margin: 550px 100px 0 100px;
+    width: 100%;
+  }
+  
+  .p-page-2 {
+    /* top right bottom left */
+    margin: 640px 215px 0 215px;
+  }
+  
+  /* tried out different settings for mutliple pages */
+  #p-media-1 {
+    background-color: rgba(100,250,100,.5); 
+    border-radius: 5%;
+    width: 874px;
+    height: 492px;
+    position: relative; 
+  
+    flex-shrink: 0;
+    /* Prevent box from shrinking */
+    flex-grow: 0;
+  }
+  
+  #p-description-1 {
     margin-left: 100px;
     margin-right: 100px;
-
+  
     column-count: 2;
     column-width: 200px;
     column-gap: 20px;
     height: 200px;
-    column-fill: auto;
-}
 
-/* */
-.p-footer {
-    position: fixed;
-    top: 83%;
-    /* Position from the top of the viewport */
-    left: 50%;
-    text-align: center;
-    transform: translate(-50%, -50%);
-}
-
-.p-title {}
-
-.p-page-number {}
-
-.ring {
-    position: absolute;
-    top: 0;
-    left: 0;
-
-    z-index: -1;
-}
-
-/* ----- */
-
-#page1 {
-    -webkit-transform: translateZ(-1000px);-moz-transform: translateZ(-1000px); transform: translateZ(-1000px);
-}
-
-#page2 {
-    -webkit-transform: translateZ(-2000px);-moz-transform: translateZ(-2000px); transform: translateZ(-2000px);
-}
-
-#media1 {
-    background-color: rgba(100, 250, 100, .5);
+    justify-self: flex-start;
+  }
+  
+  #p-media-2 {
+    background-color: rgba(197, 100, 250, 1);
     border-radius: 5%;
-    width: 874px;
-    height: 492px;
-}
+    width: 423px;
+    height: 639px;
+    position: relative;
+  
+    flex-shrink: 0;
+    /* Prevent box from shrinking */
+  }
+  
+  #p-description-2 {
+    margin-left: 24px;
 
-#media2 {
-    background-color: rgba(250, 100, 100, .5);
-    border-radius: 5%;
-    width: 874px;
-    height: 492px;
-}
+    
+  }
+  
+  #p-content-2 {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    flex-direction: row;
+  }
+  
+  #p-content-1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+
+  
