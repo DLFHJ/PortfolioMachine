@@ -1,11 +1,4 @@
 body {
-  /* reference image */
-  /*
-  background-image: url(../assets/bg.png);
-  background-color: rgba(255,255,255,0.6);
-  background-blend-mode: lighten;
-  */
-
   font-family: "acumin-pro", sans-serif;
   font-weight: 400;
   font-style: normal;
@@ -74,18 +67,12 @@ body {
 
 /* --- dynamic elements --- */
 
-/* project title */
 .p-heading {
   font-size: 48px;
   font-weight: 600;
 
   margin-left: 100px;
   margin-right: 100px;
-}
-
-.p-img {
-  width: 100%;
-  height: 100%;
 }
 
 .portfolio-container {
@@ -161,4 +148,11 @@ body {
 
   margin-left: 24px;
   
+}
+
+
+/* --- */
+.p-img {
+  width: 100%;
+  height: 100%;
 }
