@@ -80,175 +80,123 @@ img {
 
 /* ----------------------------------------------------------- */
 
-
-
-
-
-/* reference image */
 body {
-    /*
-    background-image: url(../assets/bg.png);
-    background-color: rgba(255,255,255,0.6);
-    background-blend-mode: lighten;
-    */
-  
-    font-family: "acumin-pro", sans-serif;
-    font-weight: 400;
-    font-style: normal;
-    color: #F4EFE9;
-  }
-  
-  .portfolio {
-    /* render on top of everything else */
-    
-  }
-  
-  /* background - size of the screen */
-  .oval-shape {
-    position: fixed;
-    /* Keeps the oval in the same place even when scrolling */
-    width: 1032px;
-    /* Width of the oval */
-    height: 1480px;
-    /* Height of the oval */
-    background-color: rgb(98, 98, 98);
-    border-radius: 50%;
-    /* Makes the div into an oval */
-    top: 50%;
-    /* Position from the top of the viewport */
-    left: 50%;
-    /* Position from the left of the viewport */
-    transform: translate(-50%, -50%);
-    /* Centers the oval perfectly */
-    z-index: -2;
-    /* render in the background */
-  }
-  
-  /* header holds information like student name and major */
-  .p-header {
-    position: fixed;
-    top: 17%;
-    left: 50%;
-    text-align: center;
-    transform: translate(-50%, -50%);
-  }
-  
-  .p-name {}
-  
-  .p-major {}
-  
-  .p-content {
-    max-width: 500px;
-  }
-  
-  /* project title */
-  .p-heading {
-    font-size: 48px;
-    font-weight: 600;
-    margin-left: 100px;
-    margin-right: 100px;
-  }
-  
-  .p-footer {
-    position: fixed;
-    top: 83%;
-    left: 50%;
-    text-align: center;
-    transform: translate(-50%, -50%);
-  }
-  
-  .p-title {}
-  
-  .p-page-number {}
-  
-  .ring {
-    position: absolute;
-    top: 0;
-    left: 0;
-  
-    z-index: -1;
-  }
-  
-  .p-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    /* Maintain aspect ratio and cover container */
-    border-radius: 5%;
-  }
-  
-  .p-description {
-    font-size: 16px;
-  }
-  
-  /* ----- start of page specific defintions ----- */
-  
-  .p-page-1 {
-    /* top right bottom left */
-    margin: 550px 100px 0 100px;
-    width: 100%;
-  }
-  
-  .p-page-2 {
-    /* top right bottom left */
-    margin: 640px 215px 0 215px;
-  }
-  
-  /* tried out different settings for mutliple pages */
-  #p-media-1 {
-    background-color: rgba(100,250,100,.5); 
-    border-radius: 5%;
-    width: 874px;
-    height: 492px;
-    position: relative; 
-  
-    flex-shrink: 0;
-    /* Prevent box from shrinking */
-    flex-grow: 0;
-  }
-  
-  #p-description-1 {
-    margin-left: 100px;
-    margin-right: 100px;
-  
-    column-count: 2;
-    column-width: 200px;
-    column-gap: 20px;
-    height: 200px;
+  font-family: "acumin-pro", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #F4EFE9;
+  color: red;
+}
 
-    justify-self: flex-start;
-  }
-  
-  #p-media-2 {
-    background-color: rgba(197, 100, 250, 1);
-    border-radius: 5%;
-    width: 423px;
-    height: 639px;
-    position: relative;
-  
-    flex-shrink: 0;
-    /* Prevent box from shrinking */
-  }
-  
-  #p-description-2 {
-    margin-left: 24px;
+/* --- fixed elements --- */
 
-    
-  }
-  
-  #p-content-2 {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+/* background - size of the screen */
+.oval-shape {
+  position: fixed;
+  /* Keeps the oval in the same place even when scrolling */
+  width: 1032px;
+  /* Width of the oval */
+  height: 1480px;
+  /* Height of the oval */
+  background-color: rgba(0, 0, 0, .5);
+  border-radius: 50%;
+  /* Makes the div into an oval */
+  top: 50%;
+  /* Position from the top of the viewport */
+  left: 50%;
+  /* Position from the left of the viewport */
+  transform: translate(-50%, -50%);
+  /* Centers the oval perfectly */
+  z-index: -2;
+  /* render in the background */
+}
 
-    flex-direction: row;
-  }
-  
-  #p-content-1 {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
+.ring {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
+  z-index: -1;
+}
 
-  
+/* header holds information like student name and major */
+.p-header {
+  position: fixed;
+  top: 17%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.p-name {}
+
+.p-major {}
+
+.p-content {}
+
+.p-footer {
+  position: fixed;
+  top: 83%;
+  left: 50%;
+  text-align: center;
+  transform: translate(-50%, -50%);
+}
+
+.p-title {}
+
+.p-page-number {}
+
+/* --- dynamic elements --- */
+
+.p-heading {
+  font-size: 48px;
+  font-weight: 600;
+
+  flex: 0 0 auto;
+  align-self: flex-start;
+  margin: 40px 210px;
+}
+
+.portfolio-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Horizontal alignment */
+  align-items: center;    /* Vertical alignment */
+  width: 100vw;           /* Full width of the viewport */
+  height: 100vh;          /* Full height of the viewport */
+  background-color: #f0f0f0; /* Optional background color */
+
+  background-color: rgba(0, 255, 0, .5);
+  z-index: 2;
+}
+
+.portfolio-media {
+  width: 80%;
+  aspect-ratio: 16 / 9;
+  flex: 0 0 auto;
+  background-color: red;
+
+  justify-self: center;
+  align-self: center;
+}
+
+.p-text {
+  column-count: 2;
+  column-width: 300px;
+  column-gap: 24px;
+
+  flex: 0 0 auto;
+  margin: 24px 210px;
+}
+
+/* ----- */
+.p-img {
+  width: 100%;
+  height: 100%;
+}
+
+p {
+  font-size: 16px;
+}
+
