@@ -5,7 +5,7 @@ body {
   color: #F4EFE9;
 }
 
-/* --- fixed elements --- */
+/* ----- fixed elements ----- */
 
 /* background - size of the screen */
 .oval-shape {
@@ -64,7 +64,7 @@ body {
 
 .p-page-number {}
 
-/* --- dynamic elements --- */
+/* ----- dynamic elements ----- */
 
 .p-heading {
   font-size: 48px;
@@ -213,7 +213,6 @@ body {
   width: 424px;
   margin: 0 24px 0 24px;
 }
-
 
 /* ----- */
 .p-img {
