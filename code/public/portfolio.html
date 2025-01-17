@@ -48,6 +48,40 @@
 <script src="/socket.io/socket.io.js"></script>
     <script>
         var socket = io();
+
+        function onstart(){
+            socket.emit('start');
+        }
+        onstart();
+
+        socket.on('sockeeeeet', function() {
+            console.log('Socket funktionieeeeert!!!');
+        });
+
+        
+        
+        // Throttle function to limit scroll updates
+        function throttle(fn, delay) {
+            let lastCall = 0;
+            return function(...args) {
+                const now = new Date().getTime();
+                if (now - lastCall < delay) {
+                    return;
+                }
+                lastCall = now;
+                return fn(...args);
+            };
+        }
+
+        const throttledScroll = throttle(function(yValue) {
+            const scrollAmount = yValue * (-15);
+            window.scrollBy(0, scrollAmount);
+        }, 50);  // Adjust the delay as needed
+
+        // Update WebSocket listener to use throttled scrolling
+        socket.on('yValue', function (yValue) {
+            throttledScroll(yValue);
+        });
 </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
   "dependencies": {
     "dgram": "^1.0.1",
     "express": "^4.21.2",
+    "osc": "^2.4.5",
     "socket.io": "^4.8.1",
     "sqlite3": "^5.1.7"
   }
