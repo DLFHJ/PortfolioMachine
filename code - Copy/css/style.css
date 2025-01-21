@@ -1,0 +1,299 @@
+* {
+    box-sizing: border-box;
+  }
+      
+  body {
+      background:#cacaca;
+      height:7600px;
+      text-align: center;
+  }
+  img {
+      max-width: 100%;
+      height: auto;
+  }
+  #content {
+      position:fixed; 
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      /* if smaller content box is used and centering is needed: 
+      top:50%;
+      left:50%;
+      transform: translate(-50%, -50%);
+      */
+      /* border: 2px dashed red; */
+  }
+  #viewport {
+      -webkit-perspective:300px;
+      -moz-perspective:300px;
+      -webkit-perspective-origin:50% 50%;
+      -moz-perspective-origin:50% 50%;
+      -moz-transform-style: preserve-3d;
+      width:100%;
+      height:100%;
+  }
+  
+  #instructions-overlay{
+      position: fixed;
+      width:100%;
+      height:100%;
+      z-index: -1;
+      background: rgba(0,0,0,.5);
+  }
+      
+  .frame{
+      position:absolute;
+      width:100%;
+      height:100%;
+      -moz-transform-style: preserve-3d;
+  }
+  .frame.text {
+      text-align:center;
+      -moz-transform-style: preserve-3d;
+  }
+  .frame.image {
+      text-align:center;
+  }
+  .frame.video {
+      text-align:center;
+  }
+  .frame.text h1 {
+      color:white;
+      padding:2em;
+  }
+  .frame.box {
+      border-radius:.5em;
+      background-color:rgba(255, 255, 255, 0.177);
+      padding:2em;
+  }
+
+  /* ------------------------------------------------- */
+
+
+  body {
+    font-family: "acumin-pro", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    color: #F4EFE9;
+  }
+  
+  /* ----- fixed elements ----- */
+  
+  /* background - size of the screen */
+  .oval-shape {
+    position: fixed;
+    /* Keeps the oval in the same place even when scrolling */
+    width: 1032px;
+    /* Width of the oval */
+    height: 1480px;
+    /* Height of the oval */
+    background-color: rgba(0, 0, 0, 1);
+    border-radius: 50%;
+    /* Makes the div into an oval */
+    top: 50%;
+    /* Position from the top of the viewport */
+    left: 50%;
+    /* Position from the left of the viewport */
+    transform: translate(-50%, -50%);
+    /* Centers the oval perfectly */
+    z-index: -2;
+    /* render in the background */
+  }
+  
+  .ring {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  
+    z-index: -1;
+  }
+  
+  /* header holds information like student name and major */
+  .p-header {
+    position: fixed;
+    top: 17%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+  }
+  
+  .p-name {}
+  
+  .p-major {}
+  
+  .p-content {}
+  
+  .p-footer {
+    position: fixed;
+    top: 83%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+  }
+  
+  .p-title {}
+  
+  .p-page-number {}
+  
+  /* ----- dynamic elements ----- */
+  
+  .p-heading {
+    font-size: 48px;
+    font-weight: 600;
+  
+    flex: 0 0 auto;
+    align-self: flex-start;
+    margin: 40px 210px;
+  }
+  
+  .portfolio-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center;    /* Vertical alignment */
+    width: 100vw;           /* Full width of the viewport */
+    height: 100vh;          /* Full height of the viewport */
+    z-index: 2;
+  
+    
+  }
+  
+  .p-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Horizontal alignment */
+    align-items: flex-start; 
+    text-align: center;
+    align-self: flex-start;
+  }
+  
+  
+  /* --- video landscape --- */
+  .p-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center; 
+    align-self: center;
+  }
+  
+  .p-media {
+    width: 80%;
+    aspect-ratio: 16 / 9;
+    flex: 0 0 auto;
+    justify-self: center;
+    align-self: center;
+    background-color: red;
+  }
+  
+  .p-text {
+    column-count: 2;
+    column-width: 300px;
+    column-gap: 24px;
+  
+    margin: 24px 210px;
+    
+  }
+  
+  /* --- image landscape --- */
+  .p-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center; 
+    align-self: center;
+  }
+  
+  .p-media {
+    background-color: blue;
+    width: 60%;
+    aspect-ratio: 16 / 10;
+    flex: 0 0 auto;
+  }
+  
+  .p-text {
+    column-count: 1;  /* Removes column count */
+    column-width: 550px;  /* Removes column width */
+    column-gap: 0;       /* Removes gap between columns */
+  
+    margin: 24px 325px 0 210px;
+  }
+  
+  /* --- video portrait --- */
+  .p-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Horizontal alignment */
+    align-items: flex-start; 
+    align-self: center;
+  
+    width: 100%;
+  }
+  
+  .p-media {
+    background-color: orange;
+    width: 423px;
+    height: 639px;
+    flex: 0 0 auto;
+  
+    justify-self: flex-start;
+    align-self: flex-start;
+  
+    margin-left: 217px;
+  }
+  
+  .p-text {
+    column-count: auto;  /* Removes column count */
+    column-width: auto;  /* Removes column width */
+    column-gap: 0;   
+  
+    width: 200px;
+    margin: 0;
+    margin-left: 24px;
+    justify-self: flex-start;
+    align-self: flex-end;
+  }
+  
+  /* --- image portrait --- */
+  .p-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center; 
+    align-self: center;
+  }
+  
+  .p-media {
+    background-color: violet;
+  
+    height: 860px;
+    width: 484px;
+  
+    align-self: center;
+    margin: 0;
+    margin-top: 40%;
+  }
+  
+  .p-text {
+    column-count: auto;  /* Removes column count */
+    column-width: auto;  /* Removes column width */
+    column-gap: 0; 
+  
+    align-self: center;
+    width: 424px;
+    margin: 0 24px 0 24px;
+  }
+  
+  /* ----- */
+  .p-img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  p {
+    font-size: 16px;
+  }

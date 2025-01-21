@@ -206,4 +206,66 @@ post.textContent = "asdasdsad";
 document.getElementById("containerasd").appendChild(post);
 
 
+// ----------------------------------------------------------------
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dynamic Page Number</title>
+    <style>
+        .page {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            border: 1px solid #000;
+            margin: 10px 0;
+        }
+        .page-number {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-number">Page: 1</div>
+    <div class="page" id="page1">Page 1</div>
+    <div class="page" id="page2">Page 2</div>
+    <div class="page" id="page3">Page 3</div>
+    <div class="page" id="page4">Page 4</div>
+
+    <script>
+        const pages = document.querySelectorAll('.page');
+        const pageNumberElement = document.querySelector('.page-number');
+
+        const options = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.5 // Adjust this value to suit your needs
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const pageId = entry.target.id;
+                    const pageIndex = Array.from(pages).indexOf(entry.target) + 1;
+                    pageNumberElement.textContent = `Page: ${pageIndex}`;
+                }
+            });
+        }, options);
+
+        pages.forEach(page => {
+            observer.observe(page);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
 */

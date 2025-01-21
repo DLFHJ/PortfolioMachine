@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Video</title>
+</head>
+<body>
+
+    <video autoplay muted id="startVideo" src="media/video/test.mp4"></video>
+
+
+
+
+<script>
+
+var video = document.getElementById("startVideo");
+
+video.addEventListener("ended", function(){
+    location.href = "portfolio.html";
+})
+
+</script>
+    
+</body>
+</html>
