@@ -38,7 +38,7 @@ udpPort.on("message", function (oscMsg) {
       case '/exhibit/rfid':
           if (oscMsg.args && oscMsg.args.length > 0) {
               console.log("RFID argument:", oscMsg.args[0]);
-              selectStudent(oscMsg.args[0]);
+              // selectStudent(oscMsg.args[0]);
           } else {
               console.log("No arguments received for /exhibit/rfid");
           }
@@ -98,14 +98,14 @@ io.on('connection', (socket) => {
 
 // ------------------ DB Abfragen ------------------------------
 async function selectStudent(studentId) {
-
-  let obj = {};
+  let obj = {}; // Object to hold student data
 
   try {
-    const selectStudentquery = "SELECT id, name, lastname, major FROM students WHERE rfid = ?";
+    // Step 1: Query to select student details
+    const selectStudentQuery = "SELECT id, name, lastname, major, link FROM students WHERE rfid = ?";
 
     const thisStudent = await new Promise((resolve, reject) => {
-      db.get(selectStudentquery, [studentId], function (err, row) {
+      db.get(selectStudentQuery, [studentId], function (err, row) {
         if (err) {
           reject(err);
         } else {
@@ -114,33 +114,92 @@ async function selectStudent(studentId) {
       });
     });
 
-    if(thisStudent){
-      obj['id'] = thisStudent.id;
-      obj['name'] = thisStudent.name;
-      obj['lastname'] = thisStudent.lastname;
-      obj['major'] = thisStudent.major;
-    } else{
-      console.log('errooooooor');
+    if (!thisStudent) {
+      console.log('Error: Student not found.');
+      return;
     }
 
+    // Step 2: Assign the student's data to obj
+    obj['vorname'] = thisStudent.name;
+    obj['nachname'] = thisStudent.lastname;
+    obj['major'] = thisStudent.major;
+    obj['link'] = thisStudent.link;
 
-    // let c = 0;
-    // thisStudent.forEach((row) => {
-    //   obj[c] = {};
-    //   obj[c]['id'] = row['id'];
-    //   obj[c]['name'] = row['name'];
-    //   obj[c]['lastname'] = row['lastname'];
-    //   obj[c]['major'] = row['major'];
-    //   obj[c]['link'] = row['link'];
-    //   c++;
-    // });
+    // Step 3: Query to select projects for the student
+    const selectProjectsQuery = "SELECT id, title, shorttitle, tags, year, cooperationId, cooperationName, team, position FROM projects WHERE studentId = ?";
+
+    const projects = await new Promise((resolve, reject) => {
+      db.all(selectProjectsQuery, [thisStudent.id], function (err, rows) {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(rows);
+        }
+      });
+    });
+
+    // Step 4: For each project, get the content and combine it
+    const projectData = await Promise.all(projects.map(async (project, index) => {
+      // Query to select content for this project
+      const selectContentQuery = "SELECT text, position, fileformat FROM content WHERE projectId = ?";
+
+      const content = await new Promise((resolve, reject) => {
+        db.all(selectContentQuery, [project.id], function (err, rows) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(rows);
+          }
+        });
+      });
+
+      // Step 5: Query to get the actual cooperation name from the cooperationId
+      const selectCooperationQuery = "SELECT name FROM cooperations WHERE id = ?";
+
+      const cooperationName = await new Promise((resolve, reject) => {
+        db.get(selectCooperationQuery, [project.cooperationId], function (err, row) {
+          if (err) {
+            reject(err);
+          } else {
+            resolve(row ? row.name : 'Unknown');
+          }
+        });
+      });
+
+      // Map the content to the appropriate structure
+      const contentData = content.map(item => ({
+        text: item.text,
+        position: item.position,
+        fileformat: item.fileformat,
+      }));
+
+      // Return the project data including its content and cooperation name
+      return {
+        titel: project.title,
+        shorttitel: project.shorttitle,
+        tags: project.tags,
+        year: project.year,
+        cooperation: cooperationName, // Replacing the cooperationId with the actual name
+        cooperationName: project.cooperationName, // If this field exists separately
+        team: project.team,
+        position: project.position,
+        content: contentData
+      };
+    }));
+
+    // Step 6: Assign the project data to the student object
+    projectData.forEach((project, index) => {
+      obj[`projekt${index + 1}`] = project;
+    });
 
   } catch (err) {
-    console.log(err);
+    console.log('Error:', err);
   } finally {
-    console.log('Student Data: ', obj);
-    io.emit('studentData', obj);
+    // Pretty-print the entire student object with content for better visibility
+    console.log('Student Data: ', JSON.stringify(obj, null, 2));
+    io.emit('studentData', obj); // Emit the assembled student data
   }
 }
 
+// Call the function for student ID 2
 selectStudent(2);
