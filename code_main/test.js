@@ -58,14 +58,14 @@ const studentL = [
 function insertStudent(student) {
     student.forEach((s) => {
         /* change the header */
-        changeHeader(s.vorname, s.major);
+        changeHeader(s.vorname+" "+s.nachname, s.major);
 
         /* iterate over all projects */
         let projectCount = 0; for (let key in s) {
             if (key.startsWith('projekt')) {
                 projectCount++;
                 /* project data, index */
-                insertProject(s[key], projectCount - 1);
+                insertProject(s[key], projectCount - 1, s);
             }
         }
     });
@@ -76,45 +76,17 @@ function insertStudent(student) {
  * @param {*} projekt 
  * @param {*} index 
  */
-function insertProject(projekt, index) {
-    var containerProjekt = document.createElement('div');
-    containerProjekt.classList.add('p-container');
-    document.body.appendChild(containerProjekt);
+function insertProject(projekt, index, student) {
+    var projectContainer = document.createElement('div');
+    projectContainer.classList.add('p-projectContainer');
+    document.body.appendChild(projectContainer);
 
-    const projectTitle = document.createElement('h3');
-    projectTitle.textContent = `Projekt ${index + 1}: ${projekt.titel}`;
-    projectTitle.classList.add('p-title');
-    containerProjekt.appendChild(projectTitle); 
-
-    const projectSubtitle = document.createElement('div');
-    projectSubtitle.classList.add('p-subtitle');
-    containerProjekt.appendChild(projectSubtitle);
-
-    /**
-     * TODO:
-     * DONE refactor naming 
-     * !!! check length and set e.g. team (instead of all members)
-     */
-    const projecCooperation = document.createElement('p');
-    projecCooperation.textContent = `Cooperation: ${projekt.cooperationName}`;
-    projecCooperation.classList.add('p-tag');
-    projectSubtitle.appendChild(projecCooperation);
-
-    /* teamwork or solo */
-    const projectTeam= document.createElement('p');
-    projectTeam.textContent = `Cooperation: ${projekt.team}`;
-    projectTeam.classList.add('p-tag')
-    projectSubtitle.appendChild(projectTeam);
-
-    const projectYear = document.createElement('p');
-    projectYear.textContent = `Year: ${projekt.year}`;
-    projectYear.classList.add('p-tag')
-    projectSubtitle.appendChild(projectYear);
     
+
     /* iterate over content i.e. pages */
     projekt.content.forEach((contentItem) => {
         console.log("content: " + contentItem.position);
-        insertProjectPage(containerProjekt, contentItem);
+        insertProjectPage(projectContainer, contentItem, student, projekt);
     });
 }
 
@@ -123,11 +95,56 @@ function insertProject(projekt, index) {
  * @param {*} container containter to append to
  * @param {*} contentItem the current content item
  */
-function insertProjectPage(container, contentItem) {
+function insertProjectPage(container, contentItem, student, projekt) {
     const pageContainer = document.createElement('div');
     pageContainer.classList.add('p-pageContainer');
     container.appendChild(pageContainer);
+
+    /* --- */
+    if (contentItem.position == 1) {
+        const titleHeading = document.createElement('div');
+        titleHeading.classList.add('p-titleHeading');
+        pageContainer.appendChild(titleHeading);
+
+        const projectTitle = document.createElement('h3');
+        projectTitle.textContent = `Projekt ${projekt.position}: ${projekt.titel}`;
+        projectTitle.classList.add('p-title');
+        titleHeading.appendChild(projectTitle);
     
+        const projectSubtitle = document.createElement('div');
+        projectSubtitle.classList.add('p-subtitle');
+        titleHeading.appendChild(projectSubtitle);
+    
+        /**
+         * TODO:
+         * DONE refactor naming 
+         * !!! check length and set e.g. team (instead of all members)
+         */
+        const projecCooperation = document.createElement('p');
+        projecCooperation.textContent = `${projekt.cooperationName}`;
+        projecCooperation.classList.add('p-tag');
+        projectSubtitle.appendChild(projecCooperation);
+    
+        /* teamwork or solo */
+        const projectTeam = document.createElement('p');
+        projectTeam.classList.add('p-tag')
+        if (projekt.team && projekt.team.trim() !== '') {
+            projectTeam.textContent = "Teamarbeit";
+        } else {
+            projectTeam.textContent = "Solo";
+        }
+        projectSubtitle.appendChild(projectTeam);
+        
+        const projectYear = document.createElement('p');
+        projectYear.textContent = `Year: ${projekt.year}`;
+        projectYear.classList.add('p-tag')
+        projectSubtitle.appendChild(projectYear);
+        
+    
+    }
+    /* --- */
+
+
     /* set img/video for media */
     let contentItemFileFormat;
     /* !!! maybe check || jpg || dmv || etc. */
@@ -137,19 +154,25 @@ function insertProjectPage(container, contentItem) {
         contentItemFileFormat = 'video';
     }
 
+    const mediaContainer = document.createElement('div');
+    mediaContainer.classList.add('p-mediaContainer');
+    pageContainer.appendChild(mediaContainer);
+
     const media = document.createElement(contentItemFileFormat);
     media.src = "media/Sonolux Speculative Future/LAẞLBERGER_SONOLUX_IMAGE-3.png";
+    let pathX = `${student.nachname}_${projekt.shorttitel}_${projekt.position}_${contentItem.position}.${contentItemFileFormat}`;
+    console.log(pathX);
     media.classList.add('p-media');
-    media.classList.add("p-"+contentItemFileFormat);
-    pageContainer.appendChild(media);
+    
+    mediaContainer.appendChild(media);
     /* apply different class for landscape/portrait */
     media.onload = function () {
         const width = media.naturalWidth;
         const height = media.naturalHeight;
         if (width > height) {
-            media.classList.add('p-landscape');
+            media.classList.add("p-landscape-"+contentItemFileFormat);
         } else {
-            media.classList.add('p-portrait');
+            media.classList.add('p-portrait-'+contentItemFileFormat);
         }
     };
 
@@ -307,6 +330,7 @@ document.getElementById("containerasd").appendChild(post);
 </html>
 */
 
+/* check performance */
 
 // Create a performance observer to monitor loading metrics
 const performanceObserver = new PerformanceObserver((list) => {
@@ -321,10 +345,10 @@ performanceObserver.observe({ entryTypes: ['resource', 'element'] });
 // Function to measure loading time for specific elements
 function measureLoadTime(selector) {
     const elements = document.querySelectorAll(selector);
-    
+
     elements.forEach((element, index) => {
         const startTime = performance.now();
-        
+
         // Handle different types of media
         if (element instanceof HTMLVideoElement) {
             element.addEventListener('loadeddata', () => {
@@ -347,7 +371,7 @@ function measureLoadTime(selector) {
                 console.log(`IFrame ${index + 1} load time: ${loadTime.toFixed(2)}ms`);
             });
         }
-        
+
         // Add error handling
         element.addEventListener('error', () => {
             console.error(`Error loading element ${index + 1}`);
@@ -365,7 +389,7 @@ function measurePageMetrics() {
             'DOM Content Loaded': `${pageNav.domContentLoadedEventEnd - pageNav.domContentLoadedEventStart}ms`,
             'First Contentful Paint': `${performance.getEntriesByType('paint')[0].startTime.toFixed(2)}ms`
         });
-        
+
         // Resource timing for all resources
         const resources = performance.getEntriesByType('resource');
         resources.forEach(resource => {

@@ -87,7 +87,7 @@ body {
   height: 100%;
   object-fit: cover;
   /* Maintain aspect ratio and cover container */
-  border-radius: 5%;
+  border-radius: 2em;
 }
 
 .p-description {
@@ -109,7 +109,7 @@ body {
 /* tried out different settings for mutliple pages */
 #p-media-1 {
   background-color: rgba(100,250,100,.5); 
-  border-radius: 5%;
+  border-radius: 2em;
   width: 874px;
   height: 492px;
   /* position: relative; */
@@ -132,7 +132,7 @@ body {
 
 #p-media-2 {
   background-color: rgba(197, 100, 250, 1);
-  border-radius: 5%;
+  border-radius: 2em;
   width: 423px;
   height: 639px;
   position: relative;

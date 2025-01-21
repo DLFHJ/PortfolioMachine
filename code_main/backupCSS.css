@@ -1,4 +1,135 @@
-* {
+.p-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center; 
+    align-self: center;
+  }
+  
+  .p-media {
+    width: 80%;
+    aspect-ratio: 16 / 9;
+    flex: 0 0 auto;
+    justify-self: center;
+    align-self: center;
+    background-color: red;
+  }
+  
+  .p-text {
+    column-count: 2;
+    column-width: 300px;
+    column-gap: 24px;
+  
+    margin: 24px 210px;
+    
+  }
+
+
+
+
+
+
+
+  .p-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center; 
+    align-self: center;
+  }
+  
+  .p-media {
+    background-color: blue;
+    width: 60%;
+    aspect-ratio: 16 / 10;
+    flex: 0 0 auto;
+  }
+  
+  .p-text {
+    column-count: 1;  /* Removes column count */
+    column-width: 550px;  /* Removes column width */
+    column-gap: 0;       /* Removes gap between columns */
+  
+    margin: 24px 325px 0 210px;
+  }
+
+
+
+
+
+
+
+  .p-page {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start; /* Horizontal alignment */
+    align-items: flex-start; 
+    align-self: center;
+  
+    width: 100%;
+  }
+  
+  .p-media {
+    background-color: orange;
+    width: 423px;
+    height: 639px;
+    flex: 0 0 auto;
+  
+    justify-self: flex-start;
+    align-self: flex-start;
+  
+    margin-left: 217px;
+  }
+  
+  .p-text {
+    column-count: auto;  /* Removes column count */
+    column-width: auto;  /* Removes column width */
+    column-gap: 0;   
+  
+    width: 200px;
+    margin: 0;
+    margin-left: 24px;
+    justify-self: flex-start;
+    align-self: flex-end;
+  }
+
+
+
+
+  .p-page {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Horizontal alignment */
+    align-items: center; 
+    align-self: center;
+  }
+  
+  .p-media {
+    background-color: violet;
+  
+    height: 860px;
+    width: 484px;
+  
+    align-self: center;
+    margin: 0;
+    margin-top: 40%;
+  }
+  
+  .p-text {
+    column-count: auto;  /* Removes column count */
+    column-width: auto;  /* Removes column width */
+    column-gap: 0; 
+  
+    align-self: center;
+    width: 424px;
+    margin: 0 24px 0 24px;
+  }
+
+
+
+  * {
     box-sizing: border-box;
   }
       
@@ -81,7 +212,7 @@
   /* ----- fixed elements ----- */
   
   /* background - size of the screen */
-  .oval-shape {
+  .p-ovalShape {
     position: fixed;
     /* Keeps the oval in the same place even when scrolling */
     width: 1032px;
@@ -101,7 +232,7 @@
     /* render in the background */
   }
   
-  .ring {
+  .p-ring {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -123,8 +254,6 @@
   
   .p-major {}
   
-  .p-content {}
-  
   .p-footer {
     position: fixed;
     top: 83%;
@@ -138,17 +267,7 @@
   .p-page-number {}
   
   /* ----- dynamic elements ----- */
-  
-  .p-heading {
-    font-size: 48px;
-    font-weight: 600;
-  
-    flex: 0 0 auto;
-    align-self: flex-start;
-    margin: 40px 210px;
-  }
-  
-  .portfolio-container {
+  .p-projectContainer{
     display: flex;
     flex-direction: column;
     justify-content: center; /* Horizontal alignment */
@@ -156,11 +275,9 @@
     width: 100vw;           /* Full width of the viewport */
     height: 100vh;          /* Full height of the viewport */
     z-index: 2;
-  
-    
   }
   
-  .p-page {
+  .p-pageContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start; /* Horizontal alignment */
@@ -168,124 +285,61 @@
     text-align: center;
     align-self: flex-start;
   }
+
+  /* --- */
+  /* contains tile and subtitle */
+  .p-titleHeading {}
+
+  .p-title {
+    font-size: 48px;
+    font-weight: 600;
   
-  
-  /* --- video landscape --- */
-  .p-page {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Horizontal alignment */
-    align-items: center; 
-    align-self: center;
-  }
-  
-  .p-media {
-    width: 80%;
-    aspect-ratio: 16 / 9;
     flex: 0 0 auto;
-    justify-self: center;
-    align-self: center;
-    background-color: red;
-  }
-  
-  .p-text {
-    column-count: 2;
-    column-width: 300px;
-    column-gap: 24px;
-  
-    margin: 24px 210px;
-    
-  }
-  
-  /* --- image landscape --- */
-  .p-page {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Horizontal alignment */
-    align-items: center; 
-    align-self: center;
-  }
-  
-  .p-media {
-    background-color: blue;
-    width: 60%;
-    aspect-ratio: 16 / 10;
-    flex: 0 0 auto;
-  }
-  
-  .p-text {
-    column-count: 1;  /* Removes column count */
-    column-width: 550px;  /* Removes column width */
-    column-gap: 0;       /* Removes gap between columns */
-  
-    margin: 24px 325px 0 210px;
-  }
-  
-  /* --- video portrait --- */
-  .p-page {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start; /* Horizontal alignment */
-    align-items: flex-start; 
-    align-self: center;
-  
-    width: 100%;
-  }
-  
-  .p-media {
-    background-color: orange;
-    width: 423px;
-    height: 639px;
-    flex: 0 0 auto;
-  
-    justify-self: flex-start;
     align-self: flex-start;
-  
-    margin-left: 217px;
+    margin: 40px 210px;
   }
-  
-  .p-text {
-    column-count: auto;  /* Removes column count */
-    column-width: auto;  /* Removes column width */
-    column-gap: 0;   
-  
-    width: 200px;
-    margin: 0;
-    margin-left: 24px;
-    justify-self: flex-start;
-    align-self: flex-end;
+
+  .p-subtitle {
+   
   }
-  
-  /* --- image portrait --- */
-  .p-page {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center; /* Horizontal alignment */
-    align-items: center; 
-    align-self: center;
+
+  .p-mediaContainer {
+
   }
-  
+
   .p-media {
-    background-color: violet;
+
+  }
+
   
-    height: 860px;
-    width: 484px;
+
+  .p-text {
+
+  }
+
   
-    align-self: center;
-    margin: 0;
-    margin-top: 40%;
+  
+  /* --- landscape video --- */
+  
+
+  .p-landscape-video {}
+  
+  /* --- landscape image --- */
+  
+
+  .p-landscape-img {}
+  
+  /* --- portrait video--- */
+  
+
+  .p-portrait-video {
+
   }
   
-  .p-text {
-    column-count: auto;  /* Removes column count */
-    column-width: auto;  /* Removes column width */
-    column-gap: 0; 
+  /* --- portrait image --- */
   
-    align-self: center;
-    width: 424px;
-    margin: 0 24px 0 24px;
+  .p-portrait-img {
+    
   }
   
   /* ----- */
