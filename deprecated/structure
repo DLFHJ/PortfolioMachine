@@ -1,0 +1,52 @@
+const student = [
+  {
+    vorname: "Lara",
+    nachname: "Falkenberg",
+    major: "ID",
+    link: "https://...",
+    projekt1: {
+      titel: "MomenTo.ly",
+      shorttitel: "momentoly",
+      tags: "UX Design, Game Design",
+      year: "2021",
+      cooperation: "Uni",
+      cooperationName: "Hdm Stuttgart",
+      team: "Pia Hanisch, Ilenia Quaiser",
+      position: "1",
+      content: [
+        {
+          text: "The project ...",
+          position: "1",
+          fileformat: "png",
+        },
+        {
+          text: "The project ...",
+          position: "2",
+          fileformat: "png",
+        },
+      ],
+    },
+    projekt2: {
+      titel: "Catch Me",
+      shorttitel: "catchme",
+      tags: "UX Design, Game Design",
+      year: "2021",
+      cooperation: "Uni",
+      cooperationName: "FH Joanneum",
+      team: "Ellen Dreßler, Leonie Dunke",
+      position: "2",
+      content: [
+        {
+          text: "The project ...",
+          position: "1",
+          fileformat: "png",
+        },
+        {
+          text: "The project ...",
+          position: "2",
+          fileformat: "png",
+        },
+      ],
+    },
+  },
+];
