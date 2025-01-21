@@ -58,7 +58,8 @@ const studentL = [
 function insertStudent(student) {
     student.forEach((s) => {
         /* change the header */
-        changeHeader(s.vorname+" "+s.nachname, s.major);
+        changeHeader(s.vorname + " " + s.nachname, s.major);
+        insertStartPage(s);
 
         /* iterate over all projects */
         let projectCount = 0; for (let key in s) {
@@ -81,7 +82,7 @@ function insertProject(projekt, index, student) {
     projectContainer.classList.add('p-projectContainer');
     document.body.appendChild(projectContainer);
 
-    
+
 
     /* iterate over content i.e. pages */
     projekt.content.forEach((contentItem) => {
@@ -110,11 +111,11 @@ function insertProjectPage(container, contentItem, student, projekt) {
         projectTitle.textContent = `Projekt ${projekt.position}: ${projekt.titel}`;
         projectTitle.classList.add('p-title');
         titleHeading.appendChild(projectTitle);
-    
+
         const projectSubtitle = document.createElement('div');
         projectSubtitle.classList.add('p-subtitle');
         titleHeading.appendChild(projectSubtitle);
-    
+
         /**
          * TODO:
          * DONE refactor naming 
@@ -124,7 +125,7 @@ function insertProjectPage(container, contentItem, student, projekt) {
         projecCooperation.textContent = `${projekt.cooperationName}`;
         projecCooperation.classList.add('p-tag');
         projectSubtitle.appendChild(projecCooperation);
-    
+
         /* teamwork or solo */
         const projectTeam = document.createElement('p');
         projectTeam.classList.add('p-tag')
@@ -134,13 +135,13 @@ function insertProjectPage(container, contentItem, student, projekt) {
             projectTeam.textContent = "Solo";
         }
         projectSubtitle.appendChild(projectTeam);
-        
+
         const projectYear = document.createElement('p');
         projectYear.textContent = `Year: ${projekt.year}`;
         projectYear.classList.add('p-tag')
         projectSubtitle.appendChild(projectYear);
-        
-    
+
+
     }
     /* --- */
 
@@ -159,27 +160,52 @@ function insertProjectPage(container, contentItem, student, projekt) {
     pageContainer.appendChild(mediaContainer);
 
     const media = document.createElement(contentItemFileFormat);
+
     media.src = "media/Sonolux Speculative Future/LAẞLBERGER_SONOLUX_IMAGE-3.png";
     let pathX = `${student.nachname}_${projekt.shorttitel}_${projekt.position}_${contentItem.position}.${contentItemFileFormat}`;
     console.log(pathX);
+
     media.classList.add('p-media');
-    
+
     mediaContainer.appendChild(media);
     /* apply different class for landscape/portrait */
     media.onload = function () {
         const width = media.naturalWidth;
         const height = media.naturalHeight;
         if (width > height) {
-            media.classList.add("p-landscape-"+contentItemFileFormat);
+            media.classList.add("p-landscape-" + contentItemFileFormat);
+            text.classList.add("p-landscape-text-" + contentItemFileFormat);
         } else {
-            media.classList.add('p-portrait-'+contentItemFileFormat);
+            media.classList.add('p-portrait-' + contentItemFileFormat);
+            text.classList.add("p-portrait-text-" + contentItemFileFormat);
         }
     };
 
     const text = document.createElement('p');
     text.textContent = contentItem.position + " : " + contentItem.text;
-    text.classList.add("p-text");
+
     container.appendChild(text);
+}
+
+function insertStartPage(student) {
+    const startPage = document.createElement('div');
+    startPage.classList.add('p-startPage');
+    const profilePicture = document.createElement('img');
+    profilePicture.classList.add('p-profilePicture');
+    const name = document.createElement('p');
+    name.textContent = student.vorname + " " + student.nachname;
+    name.classList.add('p-name');
+    const majorText = document.createElement('p');
+    majorText.textContent = student.major;
+    majorText.classList.add('p-major');
+    const majorImg = document.createElement('img');
+    majorImg.classList.add('p-majorImg');
+
+    document.body.appendChild(startPage);
+    startPage.appendChild(profilePicture);
+    startPage.appendChild(name);
+    startPage.appendChild(majorText);
+    startPage.appendChild(majorImg);
 }
 
 /* ----- */
